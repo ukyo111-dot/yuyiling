@@ -1573,8 +1573,26 @@ section{
   <div class="music-info">
     <div class="track-name"><span class="t-accent">♪</span> Galgame — delphia!</div>
   </div>
-  <!-- Netease Cloud Music embed (hidden, handles actual playback) -->
+  <!-- ═══════════════════════════════════════════════════════
+       BGM 配置说明：
+       「delphia! — Galgame」来自专辑《Summer》
+
+       方式一（推荐）：网易云音乐嵌入
+       在网易云搜索 "delphia Galgame"，打开歌曲页面
+       URL 格式为 music.163.com/#/song?id=XXXXX
+       将下方 src 中的 id= 后面的数字替换为 XXXXX
+
+       方式二：QQ 音乐嵌入
+       在 QQ 音乐搜索 "delphia Galgame"
+       URL 格式为 y.qq.com/n/ryqq/songDetail/XXXXX
+       将下方注释掉的 QQ 音乐 iframe 取消注释即可
+
+       方式三：Apple Music 嵌入
+       在 Apple Music 搜索 "delphia Summer"
+       使用 Apple Music 的嵌入播放器组件
+       ═══════════════════════════════════════════════════════ -->
   <div class="music-embed">
+    <!-- 网易云音乐嵌入（默认） -->
     <iframe
       id="musicIframe"
       src="https://music.163.com/outchain/player?type=2&id=3340992882&auto=0&height=32"
@@ -1582,6 +1600,14 @@ section{
       loading="lazy"
       style="width:0;height:0;border:0;opacity:0">
     </iframe>
+    <!-- QQ 音乐备选嵌入（取消注释可用） -->
+    <!-- <iframe
+      id="musicIframe"
+      src="https://y.qq.com/n/ryqq/player?type=song&id=PUT_QQ_SONG_ID_HERE&autoplay=1"
+      allow="autoplay"
+      loading="lazy"
+      style="width:0;height:0;border:0;opacity:0">
+    </iframe> -->
   </div>
   <!-- Fallback audio element -->
   <audio id="bgAudio" loop preload="none" style="display:none"></audio>
@@ -1656,6 +1682,7 @@ function toggleMusic(){
     isPlaying = false;
   } else {
     // Resume: reload iframe with autoplay
+    // ⚠️ 如果换了平台（QQ音乐等），同步更新这行的 src
     const baseSrc = 'https://music.163.com/outchain/player?type=2&id=3340992882&auto=1&height=32';
     musicIframe.src = baseSrc;
     musicToggle.classList.add('playing');
